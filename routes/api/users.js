@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
 
+// Load input Validation
+const validateRegisterInput = require('../../validations/register');
+
 //load user model
 const User = require('../../models/User');
 
@@ -19,6 +22,12 @@ router.get('/test', (req, res) => res.json({ msg: 'Users works' }));
 //@desc    Register user
 //@access  public
 router.post('/register', (req, res) => {
+  //errors and isValid from register.js
+  const { errors, isValid } = validateRegisterInput(req.body);
+  //check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
   //findOne will search for matching email with a promise. Object form in req format.
   User.findOne({ email: req.body.email }).then(user => {
     //checks if email exists.  if so, 400
