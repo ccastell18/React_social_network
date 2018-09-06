@@ -3,6 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+//Load validation
+const validateProfileInput = require('../../validations/profile');
+
 //Load Profile Model
 const Profile = require('../../models/Profile');
 //Load User Profile Model
@@ -25,6 +28,8 @@ router.get(
   (req, res) => {
     //user refers to User model user object, which refers to the user id.
     Profile.findOne({ user: req.user.id })
+      //populate the fields from 'users' on Profile Schema.  multiple objects need to be in an array.
+      .populate('user', ['name', 'avatar'])
       .then(profile => {
         //initialize errors
         const errors = {};
@@ -41,10 +46,17 @@ router.get(
 //@route   GET api/profile
 //@desc    Create or Edit user Profile
 //@access  private
-router.get(
+router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    //deconstruct the exported objects in ValidateProfileInput
+    const { errors, isValid } = validateProfileInput(req.body);
+    //check validation
+    if (!isValid) {
+      //return any errors
+      return res.status(400).json(errors);
+    }
     //get fields from profile model
     const profileFields = {};
     profileFields.user = req.user.id;
