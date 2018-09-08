@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+//redirects from outside component
+import { withRouter } from 'react-router-dom';
+
 import classnames from 'classnames';
+//used to connect redux to component
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
 class Register extends Component {
   constructor() {
@@ -16,6 +22,12 @@ class Register extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  //can test certain properties
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -28,18 +40,18 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    //axios makes the call to the api/back-end.  don't need localhost: 5000 because we made a proxy in json.
-    axios
-      .post('/api/users/register', newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    //this.props.history redirects within action
+    this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
-    //getting the errors out of the state.
+    //destructure the errors out of the state.
     const { errors } = this.state;
+    //destructure the user out of auth
+    // const { user } = this.props.auth;
     return (
       <div className="register">
+        {/* {user ? user.name : null} */}
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -124,4 +136,21 @@ class Register extends Component {
     );
   }
 }
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+//get auth state to component
+//putting state to props means you can access data, ex. this.state.props.user
+//auth is coming from the rootReducer
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+//connect parameters: second is an object to map action
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Register));
