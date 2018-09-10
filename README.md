@@ -1,6 +1,6 @@
 React Social Network
 
-This was a course taken online by Brad Traversey.  The CSS was already created.  I created the rest along with the tutorial.
+This was a course taken online by Brad Traversey.  The CSS and Bootstrap was already created.  I created the rest along with the tutorial.
 
 This is an in depth application using the MERN stack (MongoDB, Express, React, Node).  
 Some other technologies used were: Mongoose, Redux, Validator, Bcrypt, React-Redux, React Thunk, Gravatar, Concurrently, Passport, JsonWebtoken, Axios, React-Router-Dom
