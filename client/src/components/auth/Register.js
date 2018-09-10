@@ -4,7 +4,6 @@ import { PropTypes } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/textFieldGroup';
 
-import classnames from 'classnames';
 //used to connect redux to component
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
