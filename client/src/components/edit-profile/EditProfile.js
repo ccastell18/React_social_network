@@ -6,10 +6,7 @@ import TextFieldGroup from '../common/textFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
-import {
-  createNewProfile,
-  getCurrentProfile
-} from '../../actions/profileActions';
+import { createProfile, getCurrentProfile } from '../../actions/profileActions';
 import isEmpty from '../../validations/is-empty';
 
 class EditProfile extends Component {
@@ -102,7 +99,7 @@ class EditProfile extends Component {
       instagram: this.state.instagram
     };
     // calling redux actions are returned in the props
-    this.props.createNewProfile(profileData, this.props.history);
+    this.props.createProfile(profileData, this.props.history);
   }
 
   onChange(e) {
@@ -281,7 +278,7 @@ class EditProfile extends Component {
 }
 
 EditProfile.propTypes = {
-  createNewProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -294,5 +291,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createNewProfile, getCurrentProfile }
+  { createProfile, getCurrentProfile }
 )(withRouter(EditProfile));

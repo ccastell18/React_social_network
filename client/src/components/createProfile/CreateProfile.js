@@ -6,7 +6,7 @@ import TextFieldGroup from '../common/textFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
-import { createNewProfile } from '../../actions/profileActions';
+import { createProfile } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class CreateProfile extends Component {
       instagram: this.state.instagram
     };
     // calling redux actions are returned in the props
-    this.props.createNewProfile(profileData, this.props.history);
+    this.props.createProfile(profileData, this.props.history);
   }
 
   onChange(e) {
@@ -245,5 +245,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createNewProfile }
+  { createProfile }
 )(withRouter(CreateProfile));
