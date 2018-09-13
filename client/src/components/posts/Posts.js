@@ -6,7 +6,7 @@ import PostFeed from './PostFeed';
 import Spinner from '../common/Spinner';
 import { getPosts } from '../../actions/postActions';
 
-class Post extends Component {
+class Posts extends Component {
   componentDidMount() {
     this.props.getPosts();
   }
@@ -35,9 +35,9 @@ class Post extends Component {
   }
 }
 
-Post.propTypes = {
-  post: PropTypes.object.isRequired,
-  getPosts: PropTypes.func.isRequired
+Posts.propTypes = {
+  getPosts: PropTypes.func.isRequired,
+  post: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -47,4 +47,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getPosts }
-)(Post);
+)(Posts);
