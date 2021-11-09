@@ -19,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/ccastell18/Get_Involved/issues"
   },
-  "homepage": "https://github.com/ccastell18/Get_Involved#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",

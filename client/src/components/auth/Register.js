@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 //redirects from outside component
-import { withRouter } from 'react-router-dom';
+import { withRouter } from '../../utils/withRouter';
 import TextFieldGroup from '../common/textFieldGroup';
 
 //used to connect redux to component
@@ -16,7 +16,7 @@ class Register extends Component {
       email: '',
       password: '',
       password2: '',
-      errors: {}
+      errors: {},
     };
     //must bind actions, unless the use of big arrow.
     this.onChange = this.onChange.bind(this);
@@ -45,7 +45,7 @@ class Register extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
     };
     //this.props.history redirects within action
     this.props.registerUser(newUser, this.props.history);
@@ -117,18 +117,15 @@ class Register extends Component {
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
 //get auth state to component
 //putting state to props means you can access data, ex. this.state.props.user
 //auth is coming from the rootReducer
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 //connect parameters: second is an object to map action
-export default connect(
-  mapStateToProps,
-  { registerUser }
-)(withRouter(Register));
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));

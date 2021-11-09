@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/textFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { createProfile } from '../../actions/profileActions';
+import { withRouter } from '../../utils/withRouter';
 
 class CreateProfile extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class CreateProfile extends Component {
       linkedin: '',
       youtube: '',
       instagram: '',
-      errors: {}
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -53,7 +54,7 @@ class CreateProfile extends Component {
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
       youtube: this.state.youtube,
-      instagram: this.state.instagram
+      instagram: this.state.instagram,
     };
     // calling redux actions are returned in the props
     this.props.createProfile(profileData, this.props.history);
@@ -124,7 +125,7 @@ class CreateProfile extends Component {
       { label: 'Student or Learning', value: 'Student or Learning' },
       { label: 'Instructor', value: 'Instructor' },
       { label: 'Intern', value: 'Intern' },
-      { label: 'Other', value: 'Other' }
+      { label: 'Other', value: 'Other' },
     ];
 
     return (
@@ -208,8 +209,8 @@ class CreateProfile extends Component {
                     // make sure type is "button" or it will submit.
                     type="button"
                     onClick={() => {
-                      this.setState(prevState => ({
-                        displaySocialInputs: !prevState.displaySocialInputs
+                      this.setState((prevState) => ({
+                        displaySocialInputs: !prevState.displaySocialInputs,
                       }));
                     }}
                     className="btn btn-light"
@@ -235,15 +236,14 @@ class CreateProfile extends Component {
 
 CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { createProfile }
-)(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile })(
+  withRouter(CreateProfile)
+);

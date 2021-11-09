@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TextFieldGroup from '../common/textFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addEducation } from '../../actions/profileActions';
+import { withRouter } from '../../utils/withRouter';
 
 class AddEducation extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class AddEducation extends Component {
       current: false,
       description: '',
       errors: {},
-      disabled: false
+      disabled: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -39,7 +40,7 @@ class AddEducation extends Component {
       from: this.state.from,
       to: this.state.to,
       current: this.state.current,
-      description: this.state.description
+      description: this.state.description,
     };
     this.props.addEducation(eduData, this.props.history);
   }
@@ -49,7 +50,7 @@ class AddEducation extends Component {
   onCheck(e) {
     this.setState({
       disabled: !this.state.disabled,
-      current: !this.state.current
+      current: !this.state.current,
     });
   }
   render() {
@@ -148,15 +149,14 @@ class AddEducation extends Component {
 AddEducation.propTypes = {
   addEducation: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   profile: state.profile,
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default connect(
-  mapStateToProps,
-  { addEducation }
-)(withRouter(AddEducation));
+export default connect(mapStateToProps, { addEducation })(
+  withRouter(AddEducation)
+);

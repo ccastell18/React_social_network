@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authActions';
@@ -61,43 +61,43 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/profile/:handle" component={Profile} />
               <Route exact path="/profiles" component={Profiles} />
-              <Switch>
+              <Routes>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
-              <Switch>
+              </Routes>
+              <Routes>
                 <PrivateRoute
                   exact
                   path="/create-profile"
                   component={CreateProfile}
                 />
-              </Switch>
-              <Switch>
+              </Routes>
+              <Routes>
                 <PrivateRoute
                   exact
                   path="/edit-profile"
                   component={EditProfile}
                 />
-              </Switch>
-              <Switch>
+              </Routes>
+              <Routes>
                 <PrivateRoute
                   exact
                   path="/add-experience"
                   component={AddExperience}
                 />
-              </Switch>
-              <Switch>
+              </Routes>
+              <Routes>
                 <PrivateRoute
                   exact
                   path="/add-education"
                   component={AddEducation}
                 />
-              </Switch>
-              <Switch>
+              </Routes>
+              <Routes>
                 <PrivateRoute exact path="/feed" component={Posts} />
-              </Switch>
-              <Switch>
+              </Routes>
+              <Routes>
                 <PrivateRoute exact path="/post/:id" component={Post} />
-              </Switch>
+              </Routes>
               <Route exact path="/not-found" component={NotFound} />
             </div>
             <Footer />
